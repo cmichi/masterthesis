@@ -1,0 +1,109 @@
+\documentclass[tikz]{standalone}
+
+\input{misc/header}
+
+\begin{document}
+
+
+\usetikzlibrary{arrows.meta}
+\usetikzlibrary{positioning}
+\usetikzlibrary{shapes.geometric}
+\usetikzlibrary{calc} 
+\usetikzlibrary{decorations.pathreplacing}
+
+\tikzstyle{original} = [text width=6em, minimum height=5em, rounded corners, text centered, draw=black]
+\tikzstyle{retroactive} = [text width=6em, fill=red!20, minimum height=5em, rounded corners, text centered, draw=black]
+
+\tikzset{
+	arrow/.style={-latex, shorten >=0pt, shorten <=0pt},
+	arrowred/.style={-latex, shorten >=0pt, shorten <=0pt, draw = myred, myred},
+	arrowboth/.style={<->/.tip = Latex, shorten >=0pt, shorten <=0pt},
+	arrowbothred/.style={<->/.tip = Latex, shorten >=0pt, shorten <=0pt, draw = myred, myred},
+	cmd/.style={circle, draw, minimum size=5, inner sep=0pt, fill=myred},
+	event/.style={circle, draw, minimum size=5, inner sep=0pt, fill=blue},
+	evt/.style={draw=none, fill=none, align = center},
+	bottomevt/.style={draw=none, fill=none},
+	main/.style={draw=red!30,fill=red!10,very thick,minimum width=4.0cm,
+		minimum height=2cm, rounded corners=.55cm, inner sep=2pt},
+	branchA/.style={draw=blue!30,fill=blue!10,very thick,minimum width=4.0cm,
+		minimum height=2cm, rounded corners=.55cm, inner sep=2pt},
+	branchB/.style={draw=blue!30,fill=blue!10,very thick,minimum width=4.0cm,
+		minimum height=2cm, rounded corners=.55cm, inner sep=2pt},
+	cmd/.style={circle, draw, minimum size=5, inner sep=0pt, fill=black}
+}
+
+\definecolor{myred}{RGB}{165,0,0}
+\begin{tikzpicture}[node distance=5em, scale=1, decoration = brace]
+	\def\yTopA{0};
+	\def\yTopB{-1};
+	\def\yTopC{-2};
+
+	%\node [main]  (e0) {CreatedCart};
+	%\node [main, right of = e0]  (e1) {AddedProduct(A)};
+	%\node [main]  (e2) {AddedProduct(B)};
+	%\node [main]  (e3) {RemovedProduct(B)};
+	%\node [main]  (e4) {PlacedOrder};
+
+	\def\xMark{0}
+	\node [main]  (e0) at (\xMark, \yTopA) {CreatedCart};
+
+	\def\xMark{5.0}
+	\node [main]  (e1) at (\xMark, \yTopA) {AddedProduct(A)};
+
+	\def\xMark{10}
+	\node [main]  (e2) at (\xMark, \yTopA) {AddedProduct(B)};
+
+	\def\xMark{15.0}
+	\node [main]  (e3) at (\xMark, \yTopA) {RemovedProduct(B)};
+	%\node [main]  (e3_) at (\xMark, \yTopA-2.5) {RemovedProduct(B)};
+
+	\def\xMark{20.0}
+	\node [main]  (e4) at (\xMark, \yTopA) {OrderPlaced};
+
+
+
+	\draw [arrow] (e0) to (e1);
+	\draw [arrow] (e1) to (e2);
+	\draw [arrow] (e2) to (e3);
+	\draw [arrow] (e3) to (e4);
+
+	%\def\xLabel{-5.5};
+	%\def\yLabel{-0.2};
+	%\node[draw=none,fill=none, text width = 7cm, align=left] at (\xLabel,\yLabel) {\Large Event Log};
+
+	%\def\yLabel{-2.0};
+	%\node[draw=none,fill=none, text width = 7cm, align=left] at (\xLabel,\yLabel) {\Large Projection ``Products Ordered''};
+
+	%\def\yLabel{-2.5};
+	%\node[draw=none,fill=none, text width = 7cm, align=left] at (\xLabel,\yLabel) {\Large Projection ``Products removed from Cart''};
+
+	
+	% branch
+	\def\yBranchA{-4};
+	\def\xMark{15.0};
+	\def\xBranchingPoint{12.4};
+	\node [cmd] (branchingpoint) at (12.4, 0) {};
+
+	\draw [] (\xBranchingPoint, 0) to (\xBranchingPoint,\yBranchA);
+	\node [branchA]  (e4_) at (\xMark, \yBranchA) {OrderPlaced};
+	\draw [arrow] (\xBranchingPoint,\yBranchA) to (e4_);
+
+	% branch
+	\def\yBranchB{4};
+	\def\xMark{15.0};
+	\def\xBranchingPoint{12.4};
+
+	\draw [] (\xBranchingPoint, 0) to (\xBranchingPoint,\yBranchB);
+	\node [branchB]  (e4__) at (\xMark, \yBranchB) {AppliedDiscount};
+	\draw [arrow] (\xBranchingPoint,\yBranchB) to (e4__);
+
+	\def\xMark{20.0};
+	\draw [] (\xBranchingPoint, 0) to (\xBranchingPoint,\yBranchB);
+	\node [branchB]  (e5_) at (\xMark, \yBranchB) {OrderPlaced};
+	\draw [arrow] (e4__) to (e5_);
+
+	\node[draw=none,fill=none, color=black] at (11,-4) {\large Branch};
+
+\end{tikzpicture}
+
+\end{document}

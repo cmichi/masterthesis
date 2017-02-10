@@ -1,0 +1,51 @@
+\documentclass[tikz]{standalone}
+
+\input{misc/header}
+
+\begin{document}
+
+\tikzset{
+	box/.style={
+		draw=strokecolor0,fill=bgcolor0,thick,minimum width=4.2cm,
+		minimum height=2cm, rounded corners=.55cm, inner sep=2pt,
+		text width = 3cm
+	}
+}
+
+\begin{tikzpicture}[node distance=5em, scale=1, decoration=brace]
+	\def\yTopA{0};
+	\def\yTopB{-1};
+	\def\yTopC{-2};
+
+	%\def\xMark{0}
+	%\node [box]  (e0) at (\xMark, \yTopA) {CreatedCart\\Customer = Alice};
+
+	\def\xMark{5.0}
+	\node [box]  (e1) at (\xMark, \yTopA) {\large AddedProduct\\{\normalsize\ttfamily Customer: Alice\\Product = A}};
+
+	\def\xMark{10}
+	\node [box]  (e2) at (\xMark, \yTopA) 
+		{\large AddedProduct\\{\normalsize\ttfamily Customer: Bob\\Product = A}};
+		%{AddedProduct(Bob, A)};
+
+	\def\xMark{15.0}
+	\node [box]  (e3) at (\xMark, \yTopA) 
+		{\large RemovedProduct\\{\normalsize\ttfamily Customer: Alice\\Product = A}};
+		%{RemovedProduct(Alice, A)};
+
+	\def\xMark{20.0}
+	\node [box]  (e4) at (\xMark, \yTopA) 
+		{\large OrderPlaced\\{\normalsize\ttfamily Customer: Bob}};
+		%{OrderPlaced(Bob)};
+
+	\draw [dotted,] (1.5,0) to (2.2,0);
+	\draw [arrow] (2.2,0.0) to (e1);
+	\draw [arrow] (e1) to (e2);
+	\draw [arrow] (e2) to (e3);
+	\draw [arrow] (e3) to (e4);
+	\draw [arrow] (e4) to (22.8,0);
+	\draw [dotted,] (22.8,0) to (22.8+0.7,0);
+
+\end{tikzpicture}
+
+\end{document}

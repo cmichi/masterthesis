@@ -1,0 +1,83 @@
+\documentclass[tikz]{standalone}
+
+\input{misc/header}
+
+\begin{document}
+
+\tikzset{
+	evt/.style={draw=none, fill=none, align = center},
+	bottomevt/.style={draw=none, fill=none}
+}
+
+\begin{tikzpicture}[node distance=5em, scale=2, decoration = brace]
+	\def\yTop{0.4};
+	\def\yBottom{-0.2};
+
+	\def\yMark{0.1};
+
+	% timeline
+
+	% start
+	\draw [] (0.3, -0.1) to (0.3, 0.1);
+
+	\draw [] (1.0, -0.1) to (1.0, 0.1);
+	\node [evt] at (1.0, \yTop) {\texttt{x = 0}\\};
+
+	\draw [] (1.8, -0.1) to (1.8, 0.1);
+	\node [bottomevt] at (1.8, \yBottom) {$t$};
+
+	%\def\xMark{1.5}
+	%\draw [] (\xMark,-\yMark) to (\xMark,\yMark);
+	%\node [evt] at (\xMark, \yTop) {\texttt{on--}\\};
+	%\node [bottomevt] at (\xMark, \yBottom) {$c_t$};
+
+	%\def\xMark{1.5}
+	%\draw [] (\xMark,-\yMark) to (\xMark,\yMark);
+	%\node [evt] at (\xMark + 0.4, \yTop) {\texttt{on = true}\\};
+	%\node [bottomevt] at (\xMark, \yBottom) {$e$};
+
+	%\def\xMark{3.0}
+	%\draw [] (\xMark,-\yMark) to (\xMark,\yMark);
+	%\node [evt] at (\xMark, \yTop) {\texttt{if (on <= 0):\\on++}};
+	%\node [bottomevt] at (\xMark, \yBottom) {$e_{t+1}$};
+
+	%\def\xMark{4.0}
+	%\draw [] (\xMark,-\yMark) to (\xMark,\yMark);
+	%\node [evt, align = left] at (\xMark, \yTop) {\texttt{if (on == true):}\\\hspace{0.3cm}\texttt{if (on <= 0):\\on++;}};
+	%\node [bottomevt] at (\xMark, \yBottom) {$c$};
+
+	\draw [] (0.3,0) to (2.3,0);
+	\draw [dotted] (2.3,0) to (2.7,0);
+
+	\draw [] (2.7,0) to (3.7,0);
+	\draw [dotted] (3.7,0) to (4.1,0);
+
+	\def\xMark{3.2}
+	\draw [] (\xMark,-\yMark) to (\xMark,\yMark);
+	\node [evt] at (\xMark, \yTop) {\texttt{if (x <= 0):}\\\hspace{-0.7cm}\texttt{x++}};
+	%\node [bottomevt] at (\xMark, \yBottom) {$c_{t+1}$};
+
+	\def\xMark{5.5}
+	\draw [] (\xMark,-\yMark) to (\xMark,\yMark);
+	\node [evt, align = left] at (\xMark, \yTop) {\texttt{if (x >= 0):}\\\hspace{0.3cm}\texttt{insert(}$t$\texttt{, "x--")}};
+	%\node [bottomevt] at (\xMark, \yBottom) {$c_{t+2}$};
+
+	\draw [color=cmdlabel] (\xMark,\yMark+0.7) to (\xMark,\yMark+0.9);
+	\draw [color=cmdlabel] 
+		(\xMark,\yMark+0.9) to 
+		node[near end,above=0.1em, color=cmdlabel] {\texttt{x--}}
+		(1.8,\yMark+0.9);
+	\draw [cmdarrow] (1.8,\yMark+0.9) to (1.8,\yMark+0.1);
+	%\node [evt] at (3, \yMark+1.0) {\texttt{on = true}\\};
+
+	% the timeline
+	\draw [arrow] (4.1,0) to (\xMark+2.0,0);
+
+	%\node [evt] (newevt) at (3.8, -1) {Deposited\\``150''};
+	%\draw [arrow, bend right, bend angle = 55] (newevt) to (3.8,-0.05);
+
+	%\node[draw=none,fill=none] at (4.1,-0.45) {\large ?};
+
+\end{tikzpicture}
+
+\end{document}

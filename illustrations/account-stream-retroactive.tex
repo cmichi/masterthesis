@@ -1,0 +1,108 @@
+\documentclass[tikz]{standalone}
+
+\usepackage{fontspec}
+\usepackage{xunicode}
+\usepackage{xltxtra}
+
+\usepackage{polyglossia}
+\setdefaultlanguage{english}   
+
+\usepackage{tikz}
+\usepackage[misc]{ifsym}
+\usetikzlibrary{fit}
+\usepackage{amsmath} 
+
+\defaultfontfeatures{
+        Scale=MatchLowercase, % match the lowercase 'x' in different fonts
+        Mapping=tex-text,   
+        %Ligatures={TeX, Common, Rare},
+        Numbers={OldStyle, Proportional}
+}
+\setmainfont{Linux Libertine}
+
+
+\begin{document}
+
+
+\usetikzlibrary{arrows.meta}
+\usetikzlibrary{positioning}
+\usetikzlibrary{shapes.geometric}
+\usetikzlibrary{calc} 
+\usetikzlibrary{decorations.pathreplacing}
+
+
+\tikzstyle{original} = [text width=6em, minimum height=5em, rounded corners, text centered, draw=black]
+\tikzstyle{retroactive} = [text width=6em, fill=red!20, minimum height=5em, rounded corners, text centered, draw=black]
+
+\tikzset{
+	arrow/.style={-latex, shorten >=0pt, shorten <=0pt},
+	arrowred/.style={-latex, shorten >=0pt, shorten <=0pt, draw = myred, myred},
+	arrowboth/.style={<->/.tip = Latex, shorten >=0pt, shorten <=0pt},
+	arrowbothred/.style={<->/.tip = Latex, shorten >=0pt, shorten <=0pt, draw = myred, myred},
+	cmd/.style={circle, draw, minimum size=5, inner sep=0pt, fill=myred},
+	event/.style={circle, draw, minimum size=5, inner sep=0pt, fill=blue},
+	evt/.style={draw=none, fill=none, align = center},
+	bottomevt/.style={draw=none, fill=none}
+}
+
+\definecolor{myred}{RGB}{165,0,0}
+\begin{tikzpicture}[node distance=5em, scale=2, decoration = brace]
+	\def\yTop{0.4};
+	\def\yBottom{-0.2};
+
+	\def\yMark{0.1};
+
+	% timeline
+	\draw [dotted,] (0.5,0) to (0.8,0);
+
+	\def\xMark{1.5}
+	\draw [] (\xMark,-\yMark) to (\xMark,\yMark);
+	\node [evt] at (\xMark, \yTop) {CreatedAccount\\``\texttt{Peter}''};
+	\node [bottomevt] at (\xMark, \yBottom) {$e_t$};
+
+	\def\xMark{3.0}
+	\draw [] (\xMark,-\yMark) to (\xMark,\yMark);
+	\node [evt] at (\xMark, \yTop) {Deposited\\\texttt{+120}};
+	\node [bottomevt] at (\xMark, \yBottom) {$e_{t+1}$};
+
+	\def\xMark{4.5}
+	\draw [] (\xMark,-\yMark) to (\xMark,\yMark);
+	\node [evt] at (\xMark, \yTop) {Deposited\\\texttt{-20}};
+	\node [bottomevt] at (\xMark, \yBottom) {$e_{t+2}$};
+
+
+	% the timeline
+	\draw [arrow] (0.8,0) to (\xMark+0.7,0);
+
+	% the branch
+	\def\yBranch{1}
+	\def\xBranchingPoint{2.5}
+	\draw [arrow] (\xBranchingPoint,\yBranch) to (\xBranchingPoint+4.2,\yBranch);
+	\draw [] (2.0, 0) to (\xBranchingPoint,\yBranch);
+
+	% first mark on branch
+	\def\xMark{3.0}
+	\draw [] (\xMark,\yBranch-\yMark) to (\xMark,\yBranch+\yMark);
+	\node [evt] at (\xMark, \yTop+\yBranch) {Deposited\\\texttt{+120}};
+	\node [bottomevt] at (\xMark, \yBottom+\yBranch) {$e_{t+1}$};
+
+	% third mark on branch
+	\def\xMark{6.0}
+	\draw [] (\xMark,\yBranch-\yMark) to (\xMark,\yBranch+\yMark);
+	\node [evt] at (\xMark, \yBranch+\yTop) {Deposited\\\texttt{-20}};
+	\node [bottomevt] at (\xMark, \yBranch+\yBottom) {$e_{t+3}$};
+
+	% second mark on branch
+	\def\xMark{4.5}
+	\draw [color=red] (\xMark,\yBranch-\yMark) to (\xMark,\yBranch+\yMark);
+	\node [evt, color=red] at (\xMark, \yBranch+\yTop) {Deposited\\\texttt{-100}};
+	\node [bottomevt, color =red] at (\xMark, \yBranch+\yBottom) {$e_{t+2}$};
+
+	%\node [evt] (newevt) at (3.8, -1) {Deposited\\``150''};
+	%\draw [arrow, bend right, bend angle = 55] (newevt) to (3.8,-0.05);
+
+	%\node[draw=none,fill=none] at (4.1,-0.45) {\large ?};
+
+\end{tikzpicture}
+
+\end{document}

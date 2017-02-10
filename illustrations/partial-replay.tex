@@ -1,0 +1,52 @@
+\documentclass[tikz]{standalone}
+
+\input{misc/header}
+
+\begin{document}
+
+\tikzset{
+	cmd/.style={circle, draw, minimum size=10mm, inner sep=0pt, line width=0.3mm},
+	%cmd/.style={circle, draw, minimum size=10mm, inner sep=0pt, double},
+	evt/.style={circle, draw, minimum size=10mm, inner sep=0pt},
+	sideeffect/.style={fill=gray!30}
+	%sideeffect/.style={pattern=north east dotted, pattern color=grey!30}
+}
+\begin{tikzpicture}[node distance=10mm, scale=1]
+	\def\margin{20mm};
+
+	% group 1
+	\node [cmd] (c0) { $c_0$};
+	\node [evt, right = of c0] (e0) {$e_0$};
+	\draw [->] (c0) to (e0);
+
+	% group 2
+	\node [cmd, right = \margin of e0, sideeffect] (c1) {$c_1$};
+	%\node [below = 0mm of c1, color = gray!80] {\footnotesize possible side-effect};
+	\node [below = 0mm of c1] {\footnotesize possible side-effect};
+	\node [evt, right = of c1] (e1) {$e_1$};
+	\draw [->] (e0) to (c1);
+	\draw [->] (c1) to (e1);
+
+	% group 3
+	\node [cmd, right = \margin of e1] (c2) {$c_2$};
+	\node [evt, right = of c2] (e2) {$e_2$};
+	\draw [->] (e1) to (c2);
+	\draw [->] (c2) to (e2);
+
+	% the replay
+	%\draw [->, bend left, dotted, out = 60, in = 120, > = stealth, shorten > = 2mm, shorten < = 2mm] (c0) to (e1);
+	%\draw [->, bend left, dotted, out = 90, in = 90, > = stealth, shorten > = 2mm, shorten < = 2mm, looseness=1.72] (e1) to (c2);
+
+	%\draw [->, bend left, dotted, out = 90, in = 95, > = stealth, shorten > = 2mm, shorten < = 2mm, looseness=0.8] (c0) to (e1);
+	%\draw [->, bend left, dotted, out = 85, in = 90, > = stealth, shorten > = 2mm, shorten < = 2mm, looseness=1.7] (e1) to (c2);
+
+	\draw [->, bend left, dotted, out = 90, in = 95, > = stealth, shorten > = 2mm, shorten < = 2mm] (c0) to (e1);
+	\draw [->, bend left, dotted, out = 85, in = 90, > = stealth, shorten > = 2mm, shorten < = 2mm] (e1) to (c2);
+
+	\draw [->, bend right, dashed, out = 90, in = 95, > = stealth, shorten > = 2mm, shorten < = 2mm, looseness=1.0] (e0) to (c1);
+	\draw [->, bend right, dashed, out = 85, in = 90, > = stealth, shorten > = 2mm, shorten < = 2mm, looseness=1.0] (c1) to (e2);
+
+
+\end{tikzpicture}
+
+\end{document}

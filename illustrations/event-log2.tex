@@ -1,0 +1,52 @@
+\documentclass[tikz]{standalone}
+
+\input{misc/header}
+
+\begin{document}
+
+\begin{tikzpicture}[node distance=5em, scale=2, decoration = brace]
+	\def\yTop{0.2};
+	\def\yBottom{-0.2};
+
+	% timeline
+	\draw [arrow] (0,0) to (3.7,0);
+	\draw [] (0,-0.1) to (0,0.1);
+
+	% group 1
+	%\node [cmdcircle] (c0) at (0.3, 0) {};
+	%\node[draw=none, fill=none, color = cmdlabel] at (0.3,\yTop) {$c_0$};
+
+	\node [eventcircle] (e0) at (0.6, 0) {};
+	\node[draw=none, fill=none, color = eventlabel] at (0.6,\yBottom) {$e_0$};
+
+	\node [eventcircle] (e1) at (0.9, 0) {};
+	\node[draw=none, fill=none, color = eventlabel] at (0.9,\yBottom) {$e_1$};
+
+	% group 2
+	%\node [cmdcircle] (c1) at (1.9, 0) {};
+	%\node[draw=none, fill=none, color = cmdlabel] at (1.9,\yTop) {$c_1$};
+
+	\node [eventcircle] (e2) at (2.2, 0) {};
+	\node[draw=none, fill=none, color = eventlabel] at (2.2,\yBottom) {$e_2$};
+
+	% group 3
+	%\node [cmdcircle] (c2) at (2.9, 0) {};
+	%\node[draw=none, fill=none, color = cmdlabel] at (2.9,\yTop) {$c_2$};
+
+	\node [eventcircle] (e3) at (3.2, 0) {};
+	\node[draw=none, fill=none, color = eventlabel] at (3.2,\yBottom) {$e_3$};
+
+	%\draw [cmdarrow, bend angle=40, bend left] (c0) to (c1);
+	%\draw [cmdarrow, bend angle=55, bend left] (c1) to (c2);
+
+	\draw [eventarrow, bend angle=55, bend right] (e0) to (e1);
+	\draw [eventarrow, bend angle=55, bend right] (e1) to (e2);
+	\draw [eventarrow, bend angle=55, bend right] (e2) to (e3);
+
+	% labels
+	%\node[draw=none,fill=none, color = cmdlabel] at (1.5,0.5) {Replaying Comands};
+	\node[draw=none,fill=none, color = eventlabel] at (2,-0.5) {Rebuilding State};
+
+\end{tikzpicture}
+
+\end{document}

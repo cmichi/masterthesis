@@ -1,0 +1,92 @@
+\documentclass[tikz]{standalone}
+
+\input{misc/header}
+
+\begin{document}
+
+\tikzset{
+	cmd/.style={circle, draw, minimum size=17mm, inner sep=0pt
+		, line width=0.6mm
+		, fill=gray!30
+		%, dashed
+		%, fill = bgcolor1
+		%, draw = strokecolor0
+		%, draw = strokecolor0
+		%, pattern = north east lines
+		%, pattern = dots
+		%, line space = 8pt
+		%, pattern color = grey
+	},
+	evt/.style={circle, draw, minimum size=17mm, inner sep=0pt},
+	sideeffect/.style={fill=gray!30}
+}
+\begin{tikzpicture}[node distance=6mm, scale=1, decoration = brace]
+	\def\margin{20mm};
+
+	% the timeline
+	\node [evt] (e0) {$e_0$};
+	\node [evt, right = of e0] (e1) {$e_1$};
+	\node [evt, right = of e1] (e2) {$e_2$};
+	\node [evt, right = of e2] (e3) {$e_3$};
+
+	\draw [->] (e0) to (e1);
+	\draw [->] (e1) to (e2);
+	\draw [->] (e2) to (e3);
+
+	\node [cmd, right = of e3, align = center] (r0) {\texttt{delete}\\{\boldmath$e_0$}};
+	\node [cmd, right = of r0, align = center] (r1) {\texttt{delete}\\{\boldmath$e_2$}};
+
+	\draw [->] (e3) to (r0);
+	\draw [->] (r0) to (r1);
+
+
+	% the computation
+	\node [evt] (c0) at (0,-2) {$e_0$};
+	\node [evt, right = of c0] (c1) {$e_1$};
+	\node [evt, right = of c1] (c2) {$e_2$};
+	\node [evt, right = of c2] (c3) {$e_3$};
+
+	\draw [->] (c0) to (c1);
+	\draw [->] (c1) to (c2);
+	\draw [->] (c2) to (c3);
+
+	\node [cmd, right = of c3, align = center] (r0_) {\texttt{delete}\\{\boldmath$e_0$}};
+	\node [evt, right = of e0, below = of c1, fill = bgcolor0] (c1_) {$e_1$};
+	\node [evt, right = of c1_, fill = bgcolor0] (c2_) {$e_2$};
+	\node [evt, right = of c2_, fill = bgcolor0] (c3_) {$e_3$};
+
+	\node [cmd, right = of c3_, align = center] (r1_) {\texttt{delete}\\{\boldmath$e_2$}};
+
+	\draw [->] (c3) to (r0_);
+	\draw [->, bend left, in = 210, out = 25] (r0_) to (c1_);
+	\draw [->] (c1_) to (c2_);
+	\draw [->] (c2_) to (c3_);
+	\draw [->] (c3_) to (r1_);
+
+	%\node [evt, right = of r1_] (c1__) {$e_1$};
+	\node [evt, right = of r1_, below = of c1_] (c3__) {$e_1$};
+	\node [evt, right = of c3__, below = of c3_] (c3___) {$e_3$};
+
+	\draw [->, in = 40, out = 218] (r1_) to (c3__);
+	\draw [->] (c3__) to (c3___);
+	%\draw [->] (r1_) to (c1__);
+	%\draw [->] (c1__) to (c3__);
+
+	\node[draw=none, fill=none, text width = 2cm] at (-2.5,0) {\large Event Log};
+	\node[draw=none, fill=none, text width = 2cm] at (-2.5,-2) {\large Computation};
+	%\node[draw=none, fill=none, text width = 2cm] at (-2.5,-3) {\large Rebuild State};
+	%\node[draw=none, fill=none, text width = 2cm] at (-2.5,-4) {\large Rebuild State};
+
+	\def\y{-2.5};
+	%\draw[decorate, yshift=-4ex] (17.2,\y) -- node[below=0.4ex] {rebuild state} (10.60,\y);
+
+	%\draw[decorate, yshift=-4ex] (24.0,\y) -- node[below=0.4ex] {rebuild state} (20.1,\y);
+
+	\def\y{-3.5};
+	%\def\x{10.5};
+	\def\x{1.0};
+	\draw[decorate, yshift=-4ex, text width = 4cm, align = center, color = cmdlabel] (\x,-4.5) -- node[left = 0.8ex] {Potentially unnecessary\\computation} (\x,-3.0);
+
+\end{tikzpicture}
+
+\end{document}

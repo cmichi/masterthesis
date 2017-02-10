@@ -1,0 +1,121 @@
+\documentclass[tikz]{standalone}
+
+\input{misc/header}
+
+\begin{document}
+
+\tikzset{
+	cmd/.style={circle, draw, minimum size=10mm, inner sep=0pt, line width=0.3mm, fill = bgcolor0},
+	evt/.style={circle, draw, minimum size=10mm, inner sep=0pt, fill = bgcolor1},
+	sideeffect/.style={circle, draw, minimum size=10mm, inner sep=0pt, line width=0.3mm, fill = bgcolor0, 
+		double = white,
+		double distance=1.6\pgflinewidth
+	}
+	%sideeffect/.style={fill=gray!30}
+}
+\begin{tikzpicture}[node distance=10mm, scale=1]
+	\def\margin{20mm};
+	
+	% the event log
+	% group 1
+	\node [cmd] (c0) { $c_0$};
+	\node [evt, right = of c0] (e0) {$e_0$};
+	\draw [->] (c0) to (e0);
+
+	% group 2
+	\node [cmd, right = \margin of e0, sideeffect] (c1) {$c_1$};
+	\node [above = 2mm of c1, align = center] {\footnotesize Command with\\\footnotesize Side Effect};
+	\node [evt, right = of c1] (e1) {$e_1$};
+	\draw [->] (e0) to (c1);
+	\draw [->] (c1) to (e1);
+
+	% group 3
+	\node [cmd, right = \margin of e1] (c2) {$c_2$};
+	\node [evt, right = of c2] (e2) {$e_2$};
+	\draw [->] (e1) to (c2);
+	\draw [->] (c2) to (e2);
+
+
+	% event replay
+	\node [evt, below = of e0] (a_e0) {$e_0$};
+	\node [evt, below = of e1] (a_e1) {$e_1$};
+	\node [evt, below = of e2] (a_e2) {$e_2$};
+	\draw [->] (a_e0) to (a_e1);
+	\draw [->] (a_e1) to (a_e2);
+
+
+	% command replay
+	% group 1
+	\node [cmd, below = 3 of c0] (b_c0) { $c_0$};
+	\node [evt, right = of b_c0] (b_e0) {$e_0'$};
+	\draw [->] (b_c0) to (b_e0);
+
+	% group 2
+	\node [cmd, right = \margin of b_e0, sideeffect] (b_c1) {$c_1$};
+	\node [evt, right = of b_c1] (b_e1) {$e_1'$};
+	\draw [->] (b_e0) to (b_c1);
+	\draw [->] (b_c1) to (b_e1);
+
+	% group 3
+	\node [cmd, right = \margin of b_e1] (b_c2) {$c_2$};
+	\node [evt, right = of b_c2] (b_e2) {$e_2'$};
+	\draw [->] (b_e1) to (b_c2);
+	\draw [->] (b_c2) to (b_e2);
+
+
+
+	% partial replay example 1
+	% group 1
+	\node [evt, below = 5 of e0] (_e0) {$e_0$};
+	%\draw [->] (_c0) to (_e0);
+
+	% group 2
+	\node [cmd, right = \margin of _e0, sideeffect] (_c1) {$c_1$};
+	\node [evt, right = of _c1] (_e1) {$e_1''$};
+	\draw [->] (_e0) to (_c1);
+	\draw [->] (_c1) to (_e1);
+
+	% group 3
+	\node [evt, right = of _e1, below = 5 of e2] (_e2) {$e_2$};
+	\draw [->] (_e1) to (_e2);
+
+
+	% partial replay example 2
+	% group 1
+	\node [cmd] (__c0) at (0,-8) { $c_0$};
+	\node [evt, right = of __c0] (__e0) {$e_0'''$};
+	\draw [->] (__c0) to (__e0);
+
+	% group 2
+	%\node [cmd, right = \margin of __e0, sideeffect] (__c1) {$c_1$};
+	\node [evt, right = of __e0, below = of _e1] (__e1) {$e_1$};
+	\draw [->] (__e0) to (__e1);
+	%\draw [->] (__c1) to (__e1);
+
+	% group 3
+	\node [cmd, right = \margin of __e1] (__c2) {$c_2$};
+	\node [evt, right = of __c2] (__e2) {$e_2$};
+	\draw [->] (__e1) to (__c2);
+	\draw [->] (__c2) to (__e2);
+
+
+	\def\x{-2.5}
+	\def\w{4cm}
+	\node[draw=none, fill=none, text width = \w, align = left] at (\x,0) {Timeline};
+	\node[draw=none, fill=none, text width = \w, align = left] at (\x,-2) {Event Replay};
+	\node[draw=none, fill=none, text width = \w, align = left] at (\x,-4) {Command Replay};
+	\node[draw=none, fill=none, text width = \w, align = left] at (\x,-6) {Partial Replay\\Example 1};
+	\node[draw=none, fill=none, text width = \w, align = left] at (\x,-8) {Partial Replay\\Example 2};
+
+
+	% the replay
+	%\draw [->, bend left, dotted, out = 90, in = 95, > = stealth, shorten > = 2mm, shorten < = 2mm] (c0) to (e1);
+	%\draw [->, bend left, dotted, out = 85, in = 90, > = stealth, shorten > = 2mm, shorten < = 2mm] (e1) to (c2);
+
+	%\draw [->, bend right, dashed, out = 90, in = 95, > = stealth, shorten > = 2mm, shorten < = 2mm, looseness=1.0] (e0) to (c1);
+	%\draw [->, bend right, dashed, out = 85, in = 90, > = stealth, shorten > = 2mm, shorten < = 2mm, looseness=1.0] (c1) to (e2);
+
+
+\end{tikzpicture}
+
+\end{document}

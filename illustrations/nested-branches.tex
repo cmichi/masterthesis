@@ -1,0 +1,41 @@
+\documentclass[tikz]{standalone}
+
+\input{misc/header}
+
+\begin{document}
+
+\begin{tikzpicture}[node distance=5em, scale=2, decoration = brace]
+	\def\boxend{4.5};
+
+	% zeitleiste
+	\node[draw=none,fill=none] at (-0.5,0.02) {Timeline};
+	\draw [dotted,] (0,0) to (0.5,0);
+	\draw [arrow] (0.5,0) to (\boxend+1,0);
+
+	%\node[draw=none, fill=none] at (1,0.2) {$t_X$};
+
+	\node[draw=none, fill=none] at (2,0.2) {$t_0$};
+	\node[draw=none, fill=none] at (3.5,0.2) {$t_1$};
+
+
+	% command model 
+	\def\y{-0.25};
+	\node[draw=none,fill=none,color = querylabel] at (2.5,\y-0.15) {Branch A};
+	\draw [color = querylabel] (2.0,0.0) to (2.0,\y);
+	\draw [arrow, color = querylabel] (2.0,\y) to (5.0,\y);
+	%\draw [dotted,color = querylabel] (4.0,\y) to (3.0,\y);
+	\node [querycircle]  (query) at (2.0, 0) {};
+
+	\def\y{-0.5};
+	\node[draw=none,fill=none,color = cmdlabel] at (4.0,\y-0.15) {Branch B};
+	\draw [color = cmdlabel] (3.5,0.0) to (3.5,\y);
+	\draw [arrow, color = cmdlabel] (3.5,\y) to (5.0,\y);
+	%\draw [dotted,color = cmdlabel] (4.0,\y) to (4.5,\y);
+	\node [cmdcircle]  (cmd) at (3.5, 0) {};
+
+	\node[draw=none, fill=none] at (2.75,0.2) {$t_x$};
+	\node [cmdcircle, fill=black]  (cmd) at (2.75, 0) {};
+
+\end{tikzpicture}
+
+\end{document}

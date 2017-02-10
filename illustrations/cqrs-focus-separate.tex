@@ -1,0 +1,150 @@
+\documentclass[tikz]{standalone}
+
+\input{misc/header}
+
+\begin{document}
+
+%-----#1 height, #2 width, #3 aspect, #4 name of the node, #5 coordinate, #6 label
+\def\repositoryA[#1,#2,#3,#4,#5]#6{
+	\node[
+		draw, cylinder, alias=cyl, shape border rotate=90, aspect=#3, 
+		minimum height=#1, minimum width=#2, outer sep=-0.5\pgflinewidth, 
+		fill = white,
+	] (#4) at #5 {};
+
+	\node at #5 [text width=1.9cm, text centered] {#6};
+
+	\fill [white] let \p1 = ($(cyl.before top)!0.5!(cyl.after top)$), 
+		\p2 = (cyl.top), \p3 = (cyl.before top),
+		\n1={veclen(\x3-\x1,\y3-\y1)},
+		\n2={veclen(\x2-\x1,\y2-\y1)} in (\p1) ellipse (\n1 and \n2); 
+}
+
+% defines a box for the repositories (the storages)
+%-----#1 height, #2 width, #3 aspect, #4 name of the node, #5 coordinate, #6 label
+\def\repositoryB[#1,#2,#3,#4,#5]#6{
+	\node[
+		draw, cylinder, alias=cyl, shape border rotate=90, aspect=#3, 
+		minimum height=#1, minimum width=#2, outer sep=-0.5\pgflinewidth, 
+		fill = white
+	] (#4) at #5 {};
+
+	\node at #5 [text width=1.5cm, text centered] {#6};
+
+	\fill [white] let \p1 = ($(cyl.before top)!0.5!(cyl.after top)$), 
+		\p2 = (cyl.top), \p3 = (cyl.before top),
+		\n1={veclen(\x3-\x1,\y3-\y1)},
+		\n2={veclen(\x2-\x1,\y2-\y1)} in (\p1) ellipse (\n1 and \n2); 
+}
+		    
+
+\begin{tikzpicture}[decoration=brace]
+
+	\node (applogic) [roundBox, xshift = 52.5mm, minimum width = 20.5cm, text width = 5cm, fill = bgcolor1] at (0, 1.3cm) {Application};
+
+	\node (cqrs) [roundBox, label={[anchor=west]}, fill = bgcolor0, minimum width = 10cm, minimum height = 8cm] at (0,-4.0cm) {};
+	\node (retro) [roundBox, label={[anchor=west]}, fill = bgcolor2, minimum width = 10cm, minimum height = 8cm] at (10.5,-4.0cm) {};
+
+	\node (api) [roundBox] {CQRS Application Interface};
+
+
+	%\node (where) [align = center, yshift = 15mm, right = 10mm of applogic] {Where are the retroactive\\features available?};
+
+	%\node [tri, shape border rotate=180] (A) {A};
+
+	\node (commandmodel) [roundBox, below right = 10mm and 10mm of api] {Command Model};
+	\draw [arrow, bend angle=25, bend left] 
+		(api) to 
+		node[midway,right=0.4em] {Commands}  
+		(commandmodel);
+	%\draw [arrow, bend angle=25, bend left, loosely dotted] 
+		%(commandmodel) to 
+		%node[midway,left=-3mm,yshift=-4mm,align=center] {Event\\Reference}  
+		%(api);
+
+	\repositoryA[5.2em,5em,2.0,eventlog, (3.4,-6.5)] { Event\\Log };
+	\draw [arrow] 
+		([yshift=0mm]commandmodel) to 
+		node[midway,right=0.0em, text centered] {Events}  
+		(eventlog);
+
+	\node (querymodel) [roundBox,  below left = 10mm and 10mm of api, align = center] {Query\\Model};
+	\draw [arrow, bend angle=25, bend right] 
+		(api) to 
+		node[midway,left=0.5em] {Queries}  
+		(querymodel);
+
+	\draw [arrow, bend angle=25, bend right] (querymodel) to (api);
+
+	\repositoryB[5.2em,5em,2.0,currentstate, (-3.4,-6.5)] { Current State };
+
+	%\draw [<->,arrowboth] 
+		%([yshift=-3mm]querymodel) to 
+		%node[midway,right=0.1em, text centered, align = center] {Read-only\\Access}  
+		%(currentstate);
+
+	\draw [arrow] 
+		(currentstate) to
+		node[midway,right=0.0em, text centered, text width = 1.5cm] {Read-only\\Access}  
+		([yshift=-8.7mm]querymodel);
+
+	%\draw [arrow, bend angle=25, bend left, dashed] 
+		%(commandmodel) to 
+		%node[midway,below=1.4em,text width=2.2cm, text centered] {State Updates (Events)}  
+		%(currentstate);
+
+	\draw [arrow, dashed] 
+		(eventlog) to 
+		node[midway,below=0.3em,text width=2.2cm, text centered] {State Updates (Events)}  
+		(currentstate);
+
+
+	% Retroactive Stuff
+	\node (rapi) [roundBox, yshift = 40mm, right = 44mm of cqrs] {Retroactive Application Interface};
+
+	\node (rcommandmodel) [roundBox, below right = 10mm and 10mm of rapi] {
+		%\footnotesize
+		Retroactive Operations Model
+	};
+	\draw [arrow, bend angle=25, bend left] 
+		(rapi) to 
+		node[midway, right=0.8em, align = center] {Retroactive\\Operations}  
+		(rcommandmodel);
+	\draw [arrow, bend angle=25, bend left] (rcommandmodel) to (rapi);
+
+	\node (rquerymodel) [roundBox,  below left = 10mm and 10mm of rapi, align = center] {
+		%\footnotesize
+		Retroactive Query Model
+	};
+	%Retroactive Query Model + Application Query Model};
+	\draw [arrow, bend angle=25, bend right] 
+		(rapi) to 
+		node[midway, left=0.4em, align = center] {Retroactive\\Queries}  
+		(rquerymodel);
+
+	\draw [arrow, bend angle=25, bend right] (rquerymodel) to (rapi);
+	\repositoryA[5.2em,6em,2.0,rstore, (10.6,-6.5)] { Retroactive\\Store };
+
+	\draw [<->,arrow] 
+		%([yshift=-3mm]rquerymodel) to 
+		(rstore) to 
+		node[midway,left=0.7em, text centered, align = center] {Read-only\\Access}  
+		(rquerymodel);
+
+	\draw [<->,arrow] 
+		([yshift=-3mm]rcommandmodel) to 
+		node[midway,right=0.7em, align = center] {Write\\Access}  
+		(rstore);
+
+	\draw[decorate, yshift=-4ex] (5,-8) -- node[below=0.4ex] {eventually consistent} (-5,-8);
+
+	\draw[decorate, yshift=-4ex] (15.5,-8) -- node[below=0.4ex] {always consistent} (5.5,-8);
+
+	\draw [arrow,dotted] 
+		(eventlog) to 
+		node[midway,below=0.1em, text centered, align = center] {Read-only\\Access}  
+		(rstore);
+
+\end{tikzpicture}
+
+\end{document}

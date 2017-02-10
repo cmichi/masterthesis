@@ -1,0 +1,71 @@
+\documentclass[tikz]{standalone}
+
+\usepackage{fontspec}
+\usepackage{xunicode}
+\usepackage{xltxtra}
+
+\usepackage{polyglossia}
+\setdefaultlanguage{english}   
+
+\usepackage{tikz}
+\usepackage[misc]{ifsym}
+\usetikzlibrary{fit}
+\usepackage{amsmath} 
+
+\defaultfontfeatures{
+        Scale=MatchLowercase, % match the lowercase 'x' in different fonts
+        Mapping=tex-text,   
+        %Ligatures={TeX, Common, Rare},
+        Numbers={OldStyle, Proportional}
+}
+\setmainfont{Linux Libertine}
+
+
+\begin{document}
+
+
+\usetikzlibrary{arrows.meta}
+\usetikzlibrary{positioning}
+\usetikzlibrary{shapes.geometric}
+\usetikzlibrary{calc} 
+\usetikzlibrary{decorations.pathreplacing}
+
+
+\tikzstyle{original} = [text width=6em, minimum height=5em, rounded corners, text centered, draw=black]
+\tikzstyle{retroactive} = [text width=6em, fill=red!20, minimum height=5em, rounded corners, text centered, draw=black]
+
+\tikzset{
+	arrow/.style={-latex, shorten >=0pt, shorten <=0pt},
+	arrowred/.style={-latex, shorten >=0pt, shorten <=0pt, draw = myred, myred},
+	arrowboth/.style={<->/.tip = Latex, shorten >=0pt, shorten <=0pt},
+	arrowbothred/.style={<->/.tip = Latex, shorten >=0pt, shorten <=0pt, draw = myred, myred},
+	cmd/.style={circle, draw, minimum size=5, inner sep=0pt, fill=myred},
+	event/.style={circle, draw, minimum size=5, inner sep=0pt, fill=blue},
+	evt/.style={draw=none, fill=none, align = center},
+	bottomevt/.style={draw=none, fill=none}
+}
+
+\definecolor{myred}{RGB}{165,0,0}
+\begin{tikzpicture}[node distance=5em, scale=2, decoration = brace]
+	\def\yTable{0};
+	\def\xMiddle{1.5}
+	\def\xWidth{2}
+
+	\draw [] (-0.8, -0.1) to (0.8, -0.1);
+	\draw [] (0, 0.15) to (0, -0.5);
+
+	\node [evt] at (-0.4, 0.05) {Name};
+	\node [evt] at (0.4, 0.05) {Balance};
+
+	\node [evt] at (-0.4, -0.25) {Peter};
+	\node [evt] at (0.4, -0.25) {100};
+
+	\node [evt] at (-0.4, -0.45) {\dots};
+	\node [evt] at (0.4, -0.45) {\dots};
+
+	% ugly hack, to create a bounding box
+	\draw[draw = white] (-0.95,0.18) rectangle (0.95,-0.7);
+
+\end{tikzpicture}
+
+\end{document}

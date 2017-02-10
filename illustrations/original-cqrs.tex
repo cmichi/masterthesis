@@ -1,0 +1,97 @@
+\documentclass[tikz]{standalone}
+
+\usepackage{tikz}
+
+\begin{document}
+
+\usetikzlibrary{arrows.meta}
+\usetikzlibrary{positioning}
+\usetikzlibrary{shapes.geometric}
+\usetikzlibrary{calc} 
+\tikzstyle{naveqs} = [text width=6em, fill=white, minimum height=5em, rounded corners, text centered, draw=black]
+\tikzset{
+	arrow/.style={-latex, shorten >=0pt, shorten <=0pt},
+	arrowboth/.style={<->/.tip = Latex, shorten >=0pt, shorten <=0pt}
+}
+
+%-----#1 height, #2 width, #3 aspect, #4 name of the node, #5 coordinate, #6 label
+\def\elBox[#1,#2,#3,#4,#5]#6{
+	\node[draw, cylinder, alias=cyl, shape border rotate=90, aspect=#3, 
+	minimum height=#1, minimum width=#2, outer sep=-0.5\pgflinewidth, 
+	%color=orange!40!black, left color=orange!70, right color=orange!80, middle color=white
+	] (#4) at #5 {};
+
+	%\node at #5 [text width=1.5cm, text centered] {#6};
+	\node at #5 [text width=1.9cm, text centered] {#6};
+
+	\fill [white] let \p1 = ($(cyl.before top)!0.5!(cyl.after top)$), 
+		\p2 = (cyl.top), \p3 = (cyl.before top),
+		\n1={veclen(\x3-\x1,\y3-\y1)},
+		\n2={veclen(\x2-\x1,\y2-\y1)} in (\p1) ellipse (\n1 and \n2); 
+}
+%-----ABoxes
+%-----#1 height, #2 width, #3 aspect, #4 name of the node, #5
+%-----coordinate, #6 label
+\def\aboxl[#1,#2,#3,#4,#5]#6{%
+  \node[draw, cylinder, alias=cyl, shape border rotate=90, aspect=#3, %
+    minimum height=#1, minimum width=#2, outer sep=-0.5\pgflinewidth, %
+      color=black] (#4) at #5 {};%
+	  \node at #5 [text width=1.5cm, text centered] {#6};%
+	    \fill [white] let \p1 = ($(cyl.before top)!0.5!(cyl.after
+	    top)$), \p2 =
+	      (cyl.top), \p3 = (cyl.before top),
+	      \n1={veclen(\x3-\x1,\y3-\y1)},
+		\n2={veclen(\x2-\x1,\y2-\y1)} in (\p1) ellipse (\n1 and
+		\n2); }
+		    
+
+\begin{tikzpicture}
+
+	\node (api) [naveqs] {Application Interface (CQRS)};
+
+	\node (commandmodel) [naveqs, above right = 10mm and 10mm of api] {Command Model};
+	\draw [arrow, bend angle=25, bend left] 
+		(api) to 
+		node[midway,left=0.5em] {Commands}  
+		(commandmodel);
+	\draw [arrow, bend angle=25, bend left] (commandmodel) to (api);
+
+	\elBox[5.2em,5em,2.0,eventlog, (8,2.50)] { Event\\Log };
+	\draw [arrow] 
+		([yshift=11mm]commandmodel) to 
+		node[midway,above=0.2em,text width=2.5cm, text centered] {Events}  
+		(eventlog);
+
+	\node (querymodel) [naveqs,  below right = 10mm and 10mm of api, align = center] {Query\\Model};
+	\draw [arrow, bend angle=25, bend right] 
+		(api) to 
+		node[midway,left=0.5em] {Queries}  
+		(querymodel);
+
+	\draw [arrow, bend angle=25, bend right] (querymodel) to (api);
+
+	\aboxl[5.2em,5em,2.0,currentstate, (8,-2.91)] { Current State };
+
+	\draw [<->,arrowboth] 
+		([yshift=5mm]querymodel) to 
+		node[midway,above=0.2em,text width=2.5cm, text centered] {Read-only Access}  
+		(currentstate);
+
+	\draw [arrow, bend angle=25, bend left, dashed] 
+		(commandmodel) to 
+		node[midway,right=0.1em,text width=2.2cm, text centered] {State Updates (Events)}  
+		(currentstate);
+
+	%\path (api) -- (commandmodel) node[draw=none, midway, left]{ Commands };
+	%\draw [bend angle=25, bend left] (api) to (commandmodel) {Commands};
+	%\draw  (api)  to [bend left=45] node[sloped,midway,above] {midway label} (commandmodel) ;
+
+
+
+%\begin{scope}[>=Latex]
+%\draw[>->] (0pt,3ex) -- (1cm,3ex);
+%\draw[|<-|] (0pt,2ex) -- (1cm,2ex);
+%\end{scope}
+\end{tikzpicture}
+
+\end{document}

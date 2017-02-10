@@ -1,0 +1,66 @@
+\documentclass[tikz]{standalone}
+
+\input{misc/header}
+
+\begin{document}
+
+\begin{tikzpicture}[node distance=5em, scale=2, decoration = brace]
+	\def\boxend{4.5};
+
+	% zeitleiste
+	\node[draw=none,fill=none] at (-1,0) {\large Application};
+	\draw [dotted,] (0,0) to (0.5,0);
+	\draw [arrow] (0.5,0) to (\boxend+1,0);
+
+	\node [cmdcircle]  (cmd) at (1.0, 0) {};
+	\node[draw=none, fill=none, color = cmdlabel] at (1,0.2) {Command};
+
+	\node [querycircle]  (query) at (2.0, 0) {};
+	\node[draw=none, fill=none, color = querylabel] at (2,0.2) {Query};
+
+
+	% command model 
+	\def\y{-0.5};
+	\node[draw=none,fill=none] at (-1,\y) {\large Command  Model};
+	\draw [dotted,] (0,\y) to (0.5,\y);
+	\draw [arrow] (0.5,\y) to (\boxend+1,\y);
+
+	\draw[draw=black, fill = bgcolor3, dash pattern=on 2pt off 2pt] 
+		(1.5,\y+0.1) rectangle (\boxend,\y-0.1);
+
+	\begin{scope}
+		\clip(1.0,\y+0.2) rectangle (3.6,\y-0.2);
+		\draw[draw=black, fill = bgcolor3]
+			(1.5,\y+0.1) rectangle (\boxend,\y-0.1);
+	\end{scope}
+
+	\begin{scope}
+		\clip(4.3,\y+0.2) rectangle (\boxend+0.2,\y-0.2);
+		\draw[draw=black, fill = bgcolor3]
+			(1.5,\y+0.1) rectangle (\boxend,\y-0.1);
+	\end{scope}
+
+	\draw [cmdarrow] 
+		(\boxend, \y-0.12) to 
+		node[midway,right=0.0em, text centered] {Update}  
+		(\boxend, -1);
+
+	\node [cmdcircle]  (cmd1) at (1.5, \y) {};
+	\draw [cmdarrow] (cmd) to (cmd1);
+
+
+	% query model 
+	\def\y{-1.0};
+	\node[draw=none,fill=none] at (-1,\y) {\large Query  Model};
+	\draw [dotted,] (0,\y) to (0.5,\y);
+	\draw [arrow] (0.5,\y) to (\boxend+1,\y);
+
+	\node [querycircle]  (query1) at (2.8, \y) {};
+	\draw [queryarrow] (query) to (query1);
+
+	\node [querycircle]  (query2) at (3.5, 0) {};
+	\draw [queryarrow] (query1) to (query2);
+
+\end{tikzpicture}
+
+\end{document}

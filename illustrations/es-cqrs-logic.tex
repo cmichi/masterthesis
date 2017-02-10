@@ -1,0 +1,111 @@
+\documentclass[tikz]{standalone}
+
+\input{misc/header}
+\usepackage{tikz}
+
+\begin{document}
+
+\usetikzlibrary{arrows.meta}
+\usetikzlibrary{positioning}
+\usetikzlibrary{shapes.geometric}
+\usetikzlibrary{calc} 
+\tikzstyle{naveqs} = [text width=6em, fill=white, minimum height=5em, rounded corners, text centered, draw=black]
+\tikzset{
+	arrow/.style={-latex, shorten >=0pt, shorten <=0pt},
+	arrowboth/.style={<->/.tip = Latex, shorten >=0pt, shorten <=0pt}
+}
+
+%-----#1 height, #2 width, #3 aspect, #4 name of the node, #5 coordinate, #6 label
+\def\elBox[#1,#2,#3,#4,#5]#6{
+	\node[draw, cylinder, alias=cyl, shape border rotate=90, aspect=#3, 
+	minimum height=#1, minimum width=#2, outer sep=-0.5\pgflinewidth, 
+	fill = white!30,
+	%color=orange!40!black, left color=orange!70, right color=orange!80, middle color=white
+	] (#4) at #5 {};
+
+	%\node at #5 [text width=1.5cm, text centered] {#6};
+	\node at #5 [text width=1.9cm, text centered] {#6};
+
+	\fill [white!30] let \p1 = ($(cyl.before top)!0.5!(cyl.after top)$), 
+		\p2 = (cyl.top), \p3 = (cyl.before top),
+		\n1={veclen(\x3-\x1,\y3-\y1)},
+		\n2={veclen(\x2-\x1,\y2-\y1)} in (\p1) ellipse (\n1 and \n2); 
+}
+%-----ABoxes
+%-----#1 height, #2 width, #3 aspect, #4 name of the node, #5
+%-----coordinate, #6 label
+\def\aboxl[#1,#2,#3,#4,#5]#6{%
+  \node[draw, cylinder, alias=cyl, shape border rotate=90, aspect=#3, %
+    minimum height=#1, minimum width=#2, outer sep=-0.5\pgflinewidth, %
+	fill = white!30%
+      ] (#4) at #5 {};%
+	  \node at #5 [text width=1.5cm, text centered] {#6};%
+	    \fill [white!30] let \p1 = ($(cyl.before top)!0.5!(cyl.after
+	    top)$), \p2 =
+	      (cyl.top), \p3 = (cyl.before top),
+	      \n1={veclen(\x3-\x1,\y3-\y1)},
+		\n2={veclen(\x2-\x1,\y2-\y1)} in (\p1) ellipse (\n1 and
+		\n2); }
+		    
+
+\begin{tikzpicture}
+
+	\node (applogic) [naveqs, minimum width = 10cm, text width = 5cm, fill = blue!10] at (0, 1.3cm) {Application};
+
+	\node (cqrs) [naveqs, label={[anchor=west]}, fill = red!10, minimum width = 10cm, minimum height = 8cm] at (0,-4.0cm) {};
+
+	\node (api) [naveqs] {CQRS Application Interface};
+
+	%\node [tri, shape border rotate=180] (A) {A};
+
+	\node (commandmodel) [naveqs, below right = 10mm and 10mm of api, fill = white!30] {Command Model};
+	\draw [arrow, bend angle=25, bend left] 
+		(api) to 
+		node[midway,right=0.4em] {Commands}  
+		(commandmodel);
+	%\draw [arrow, bend angle=25, bend left] (commandmodel) to (api);
+
+	\elBox[5.2em,5em,2.0,eventlog, (3.4,-6.5)] { Event\\Log };
+	\draw [arrow] 
+		([yshift=0mm]commandmodel) to 
+		node[midway,right=0.0em, text centered] {Events}  
+		(eventlog);
+
+	\node (querymodel) [naveqs,  below left = 10mm and 10mm of api, align = center, fill = white!30] {Query\\Model};
+	\draw [arrow, bend angle=25, bend right] 
+		(api) to 
+		node[midway,left=0.5em] {Queries}  
+		(querymodel);
+
+	\draw [arrow, bend angle=25, bend right] (querymodel) to (api);
+
+	\aboxl[5.2em,5em,2.0,currentstate, (-3.4,-6.5)] { Current State };
+
+	\draw [arrow] 
+		(currentstate) to
+		node[midway,right=0.0em, text centered, text width = 1.5cm] {Read-only\\Access}  
+		([yshift=-8.7mm]querymodel);
+
+	%\draw [arrow, bend angle=25, bend left, dashed] 
+		%(commandmodel) to 
+		%node[midway,below=1.4em,text width=2.2cm, text centered] {State Updates (Events)}  
+		%(currentstate);
+
+	\draw [arrow, dashed] 
+		(eventlog) to 
+		node[midway,below=0.3em,text width=2.2cm, text centered] {State Updates (Events)}  
+		(currentstate);
+
+	%\path (api) -- (commandmodel) node[draw=none, midway, left]{ Commands };
+	%\draw [bend angle=25, bend left] (api) to (commandmodel) {Commands};
+	%\draw  (api)  to [bend left=45] node[sloped,midway,above] {midway label} (commandmodel) ;
+
+
+
+%\begin{scope}[>=Latex]
+%\draw[>->] (0pt,3ex) -- (1cm,3ex);
+%\draw[|<-|] (0pt,2ex) -- (1cm,2ex);
+%\end{scope}
+\end{tikzpicture}
+
+\end{document}

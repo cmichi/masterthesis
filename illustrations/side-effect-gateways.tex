@@ -1,0 +1,50 @@
+\documentclass[tikz]{standalone}
+
+\input{misc/header}
+
+\begin{document}
+
+\tikzset{
+	cmd/.style={circle, draw, minimum size=10mm, inner sep=0pt, line width=0.3mm, fill = bgcolor0},
+	%cmd/.style={circle, draw, minimum size=10mm, inner sep=0pt, double},
+	evt/.style={circle, draw, minimum size=10mm, inner sep=0pt, fill = bgcolor1},
+	%sideeffect/.style={fill=gray!30}
+	sideeffect/.style={circle, draw, minimum size=10mm, inner sep=0pt, line width=0.3mm, fill = bgcolor0, 
+		double = white,
+		double distance=1.6\pgflinewidth
+	}
+	%sideeffect/.style={pattern=north east dotted, pattern color=grey!30}
+}
+\begin{tikzpicture}[node distance=10mm, scale=1]
+	\def\margin{20mm};
+
+	% group 1
+	\node [cmd] (c0) { $c_0$};
+	\node [evt, right = of c0] (e0) {$e_0$};
+	\draw [->] (c0) to (e0);
+
+	% group 2
+	\node [cmd, right = \margin of e0, sideeffect] (c1) {$c_1$};
+	\node [below = 0mm of c1, text width = 3cm, align = center] {\footnotesize writing side-effect};
+	%\node [below = 0mm of c1, text width = 3cm, align = center] {\footnotesize side-effect\\\footnotesize afflicted command};
+	\node [evt, right = of c1] (e1) {$e_1$};
+	\draw [->] (e0) to (c1);
+	\draw [->] (c1) to (e1);
+
+	% group 3
+	\node [cmd, right = \margin of e1] (c2) {$c_2$};
+	\node [evt, right = of c2] (e2) {$e_2$};
+	\draw [->] (e1) to (c2);
+	\draw [->] (c2) to (e2);
+
+	% the gateway
+	\node (gateway) [roundBox, minimum height = 0.8cm, minimum width = 3.5cm, text width = 5cm, fill = bgcolor2] at (5, 2) {Gateway};
+
+	\node [above = 25mm of c1] (se) {\footnotesize HTTP GET/POST};
+	\draw [->, bend right, dashed, out = 10, in = 90, > = stealth, shorten > = 2mm, shorten < = 2mm, looseness=1.0] (c1) to (se);
+	\draw [->, bend right, dashed, out = 90, in = 180, > = stealth, shorten > = 2mm, shorten < = 2mm, looseness=1.0] (se) to (c1);
+
+
+\end{tikzpicture}
+
+\end{document}

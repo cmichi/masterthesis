@@ -1,0 +1,23 @@
+\documentclass[tikz]{standalone}
+
+\input{misc/header}
+
+\usepackage{tikz}
+
+%\usepackage[active,tightpage]{preview}
+%\PreviewEnvironment{tikzpicture}
+%\setlength\PreviewBorder{7pt}
+
+\tikzstyle{superpeers}=[draw, circle, fill = bgcolor0, minimum width=20pt]
+
+\begin{document}
+\begin{tikzpicture}[auto, thick]
+  % Place super peers and connect them
+  \foreach \place/\name in {{(0,-1)/a}, {(2,0)/b}, {(2,2)/c}, {(0,2)/d},
+           {(-2,0)/e}}
+    \node[superpeers] (\name) at \place {};
+  \foreach \source/\dest in {a/b, a/c, a/d, b/c, c/d,a/e,d/e}
+    \path (\source) edge (\dest);
+\end{tikzpicture}
+\end{document}
+
