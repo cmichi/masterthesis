@@ -25,7 +25,9 @@ To compile the files:
 	make biber          # compiles thesis and bibliography
 
 <p align="center">
-	[ ![Thesis Titlepage](https://github.com/cmichi/masterthesis/raw/master/images/titlepage.png) ](https://oparu.uni-ulm.de/xmlui/bitstream/handle/123456789/4150/RetroactiveComputing_Mueller2016.pdf?sequence=5&isAllowed=y).
+	<a href="https://oparu.uni-ulm.de/xmlui/bitstream/handle/123456789/4150/RetroactiveComputing_Mueller2016.pdf?sequence=5&isAllowed=y">
+		<img src="https://github.com/cmichi/masterthesis/raw/master/images/titlepage.png" />
+	</a>
 </p>
 
 
