@@ -1,0 +1,25 @@
+\begin{table}
+\footnotesize
+\centering
+\begin{tabular}{l | l  }
+Object Type 	& Operation 	 	 \\
+\hline \hline
+\texttt{Timeline} 	& 	\cmd{createBranch(:tag, "before" || "after")}	\\
+ &  \\
+\texttt{Timeline/Branch} 	& 	\cmd{getState(:tag)}	\\
+ &  \\
+\texttt{Branch} 	& 	\cmd{getEvents([:tag])}	\\
+\texttt{Branch} 	& 	\cmd{insertEvent(:tag, :event)}	\\
+\texttt{Branch} 	& 	\cmd{deleteEvents([:tag], :dependentOnes)}	\\
+\texttt{Branch} 	& 	\cmd{insertCommand(:tag, :command)}	\\
+\texttt{Branch} 	& 	\cmd{deleteCommands([:tag])}	\\
+\texttt{Branch} 	& 	\cmd{changeCommandFunction(:old, :new)}	\\
+&  \\
+\texttt{Branch} 	& 	\cmd{eventReplay([:tag], :replayDependentCommands, :replayDependentEvents)}	\\
+\texttt{Branch} 	& 	\cmd{commandReplay([:tag], :replayDependentCommands, :replayDependentEventscommandReplay)}	\\
+\texttt{Branch} 	& 	\cmd{partialReplay(:tag, :reuse, :recompute, :dependentOnes)}	\\
+\end{tabular}\\
+\caption{The table lists the interface of the timeline and branches objects.
+}
+\label{tbl:object}
+\end{table}

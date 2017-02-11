@@ -1,0 +1,28 @@
+\begin{table}
+\footnotesize
+\centering
+\begin{tabular}{c | l | l | l | l | l }
+ & Semantics 	& Method	 	& Resource	& Payload			& Application Mapping \\
+\hline \hline
+Q & List all products 		& \cmd{GET} 			& \cmd{/products}	& & \cmd{getProducts()}  				 \\
+Q & List details of product 	& \cmd{GET} 			& \cmd{/products/:id}	& & \cmd{getProduct(:id)} 				  \\
+ && & & &  \\
+Q & Display items in cart 		& \cmd{GET}			& \cmd{/cart}		& & \cmd{getCart()}  				 \\
+C & Empty shopping cart 		& \cmd{DELETE}			& \cmd{/cart/}  	& & \cmd{emptyCart()}  \\
+C & Put item in cart 		& \cmd{POST}			& \cmd{/cart/:id}	&  \cmd{\{qty: 1\}} & \cmd{addToCart(:id, :qty)} \\
+C & Update item quantity  		& \cmd{PUT}			& \cmd{/cart/:id}	&  \cmd{\{qty: 5\}} & \cmd{updateQty(:id, :qty)} \\
+C & Remove item from cart 		& \cmd{DELETE}			& \cmd{/cart/:id}	& & \cmd{removeFromCart(:id)} 				  \\
+ & & & & \\
+C & Place order 			& \cmd{POST}			& \cmd{/order}	& 				& 1) \cmd{fetchCurrencyRate()}  \\
+		& & 			& 		& & 2) \cmd{createOrder()} \\
+		& & 			& 		& & 2) \cmd{sendConfirmation()} \\
+\end{tabular}\\
+\caption{The table lists resources and operations of the online shop. 
+The REST interface maps and distributes HTTP requests to system commands
+(C) and queries (Q). Two application commands yield side effects: 
+\cmd{fetchCurrencyRate()} is an external query and returns data,
+\cmd{sendConfirmation()} is an external command, which triggers the
+transmission of a mail message.
+}
+\label{tbl:rest-shop}
+\end{table}

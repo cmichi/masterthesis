@@ -1,0 +1,57 @@
+%!TEX TS-program = xelatex
+%!TEX encoding = UTF-8 Unicode
+
+\documentclass[11pt,a4paper,twoside]{book}
+\usepackage{xunicode}
+\usepackage{lettrine}
+\usepackage{xltxtra}
+\usepackage{fontspec}
+\usepackage{verbatim}
+
+\setromanfont[Mapping=tex-text, Numbers=OldStyle, Alternate=1,Ligatures={Common, Rare, Historical}]{Linux Libertine}
+
+%\newcommand{\old}[1]{\fontspec[Alternate=1,Ligatures={Common, Rare}, Swashes={LineInitial, LineFinal}]{HoeflerText}\selectfont #1}
+%\newcommand{\smallprint}[1]{\fontspec{Adobe Garamond Pro}\fontsize{10pt}{13pt}\color{Gray}\selectfont #1}
+%\newcommand{\old}[1]{\fontspec[Alternate=1,Ligatures={Common, Rare, Historical}]{Linux Libertine}\selectfont #1}
+
+\begin{document}
+\thispagestyle{empty}
+\vspace*{2cm}
+
+%\old\begin{quote}
+
+\begin{comment}
+\begin{minipage}{0.57\textwidth}
+\Large
+{
+	%\old
+	\lettrine[lines=2,lhang=0.9,nindent=0.35em]{``H}{\"ansel}, however, little by little, threw all the crumbs on the path.
+}''\\ \ \\
+\end{minipage}
+\end{comment}
+
+
+\begin{minipage}{0.8\textwidth}
+\Large
+	\lettrine[lines=2, loversize=0.35, lhang=0.5]{S}{till} 
+	H\"ansel comforted Grethel, and said, ``Wait till the moon
+	rises; and then I shall be able to see the crumbs of bread which I
+	have strewed, and they will show us the way home.''
+\end{minipage}
+\\ \ \\
+
+
+\begin{minipage}{0.8\textwidth}
+\begin{flushright}
+%\old
+%\fontspec{HoeflerText}\selectfont
+
+---\textsc{Grimm's Household Tales}\\
+
+%\fontspec{HoeflerText-Bold}\selectfont
+\textit{H\"ansel and Grethel}
+
+\end{flushright}
+\end{minipage}
+
+\end{document}

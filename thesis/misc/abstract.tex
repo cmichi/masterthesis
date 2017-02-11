@@ -1,0 +1,21 @@
+\thispagestyle{page_number_bottom_center}
+\section*{Abstract}
+
+Event sourcing is a style of software architecture wherein state altering 
+operations to an application are captured as immutable events. Each event 
+is appended to an event log, with the current state of a system derived 
+from this series of events. This thesis addresses the utilization of 
+retroactive capabilities in event-sourced systems: computing alternate 
+application states, post hoc bug fixes, or the support of algorithms which 
+have access to their own history, for example.
+The possibility of retroactively accessing and modifying this event log 
+is a potential capability of an event-sourced system, but a detailed 
+exploration how these operations can be facilitated and supported has not 
+yet been conducted.
+
+We examine how retroaction can be applied to event-sourced systems and 
+discuss conceptual considerations. Furthermore, we demonstrate how different 
+architectures can be used to provide retroaction and describe the prototypical 
+implementation of an appropriate programming model.
+These findings are applied in the Chronograph research project, in order to
+utilize potential temporal aspects of this platform.

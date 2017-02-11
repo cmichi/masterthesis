@@ -1,0 +1,156 @@
+\title{}
+\author{Michael Müller}
+\date{\today}
+
+\usepackage{fontspec}
+\usepackage{xunicode}
+\usepackage{xltxtra}
+
+\usepackage{polyglossia}
+\setdefaultlanguage{english}
+
+% big font for sections
+\usepackage{sectsty}
+\sectionfont{\LARGE}
+
+\usepackage{lettrine}
+\usepackage{graphicx}
+\usepackage{wrapfig}
+\usepackage{booktabs}
+\usepackage{tabularx}
+\usepackage[hidelinks]{hyperref}
+\usepackage{listings}
+\usepackage{pdfpages}
+\usepackage{todonotes}
+
+\usepackage[hang]{caption}
+\usepackage{subcaption}
+
+% enables us to use `\begin{figure}[H]`
+\usepackage{float}
+
+% \begin{comment} ... \end{comment{}
+\usepackage{verbatim}
+
+
+\makeatletter
+\renewcommand{\paragraph}{
+	\@startsection{paragraph}{4}
+	{\z@}{1.25ex \@plus 1ex \@minus .2ex}{-1em}
+	{\normalfont\normalsize\bfseries}
+}
+\makeatother
+
+\usepackage{color}
+
+\lstdefinestyle{stylea}{
+	%basicstyle=\scriptsize\ttfamily,
+	basicstyle=\scriptsize,
+	tabsize=2,
+	numbersep=5pt,
+	firstline=1,
+	showspaces=false,
+	showstringspaces=false,
+	xleftmargin=0pt
+}
+
+\lstdefinestyle{styleb}{
+	numbers=left,
+	frame=single,
+	basicstyle=\scriptsize\ttfamily,
+	tabsize=2,
+	xleftmargin=0pt,
+	showspaces=false,
+	showstringspaces=false
+}
+
+\lstdefinestyle{stylec}{
+	numbers=none,
+	frame=none,
+	basicstyle=\small\ttfamily,
+	tabsize=2,
+	%xleftmargin=0pt,
+	showspaces=false,
+	showstringspaces=false,
+	,xleftmargin=.2\textwidth, xrightmargin=.2\textwidth
+}
+
+\lstdefinestyle{styled}{
+	numbers=none,
+	frame=none,
+	basicstyle=\small\ttfamily,
+	tabsize=2,
+	showspaces=false,
+	showstringspaces=false,
+	xleftmargin=.1\textwidth
+}
+
+\usepackage{tikz}
+\usetikzlibrary{fit,positioning}
+\usetikzlibrary{decorations.text}
+
+\usepackage{amssymb}
+
+\usepackage[toc,page]{appendix}
+\renewcommand{\appendixpagename}{\sffamily Appendices}
+
+\usepackage[
+        sorting=none,
+        minbibnames=8,
+        maxbibnames=9,
+        block=space,
+        backend=biber
+]{biblatex}
+\bibliography{bibliography}
+
+\usepackage{paralist}
+
+\defaultfontfeatures{
+	Scale=MatchLowercase, % match the lowercase 'x' in different fonts
+	Mapping=tex-text,
+	%Ligatures={TeX, Common, Rare}, 
+	Numbers={OldStyle, Proportional}
+}
+\setmainfont{Linux Libertine}
+\setmonofont[Scale=0.82]{Source Code Pro}
+
+\defaultfontfeatures[\sffamily]{
+	Scale = MatchLowercase, 
+	WordSpace = 0.6
+}
+\setsansfont{Latin Modern Sans}
+
+\usepackage{mathtools}
+
+\usepackage{fancyhdr}
+% the roman numbers in the frontmatter somehow refuse to
+% get centered on the bottom, thus i created a custom page 
+% numbering  style for the abstract page
+\fancypagestyle{page_number_bottom_center}{
+	% clear all headers and footers
+	\fancyhf{} 
+	\fancyfoot[C]{\bfseries\thepage}
+
+	% remove head rule
+	\renewcommand{\headrulewidth}{0pt} 
+
+	% remove foot rule
+	\renewcommand{\footrulewidth}{0pt} 
+}
+
+% for character protrusion
+\usepackage[protrusion=true]{microtype}
+
+% to separate the final chapter in the table of contents from part 2
+\usepackage{bookmark}
+
+\newcommand{\cmd}[1]{\texttt{#1}}
+\newcommand{\evt}[1]{\texttt{#1}}
+
+\usepackage{scrtime}
+
+\hyphenation{re-tro-action re-tro-active where-in}
+
+% prevents page numbers and headings from 
+% appearing on empty pages
+\usepackage{emptypage}

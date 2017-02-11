@@ -1,0 +1,65 @@
+\chapter{Summary of Architectural Considerations}
+\label{chp:sum}
+
+Integrating retroaction in event-sourced systems introduces a set of capabilities 
+which are not feasible in traditional event-sourced architectures. 
+A comparison of our conceptual considerations to existing systems is difficult, 
+since the capabilities which we propose for event-sourced systems cannot be 
+found in this combination in the event-sourced field, nor in related work.
+To the best of our knowledge, there exists no work which examines retroactive 
+computing in event-sourced systems.
+Thus, \emph{it is not possible to evaluate our conceptual proposals and
+ideas against a comparable system in the event sourcing domain}.
+
+If we turn to related work, there are some domains which have similar ideas.
+But as illustrated in Chapter \ref{chp:related-work}, most of these domains 
+utilize the recorded history of a program in a different manner than we do: 
+decoupled from the application (debuggers), limited to passive retrospection 
+(history-aware languages and algorithms), or on a meta level (VCSes).
+Oftentimes the recorded history of an application is only utilized for post 
+hoc analysis in separate tools, after the execution has finished.
+%
+In Chapter \ref{chp:related-work}, we described related works and efforts to 
+utilize retroaction in data structures and aspect oriented programming languages.
+These approaches have parallels to our work, but do not consider problems of 
+temporal and causal inconsistencies, necessary restrictions, or side effects.
+The problem of how to handle side effects in replays is mentioned in the related 
+work concerning reotractive aspects as well, though there is no clear solution, 
+whereas we have provided an in-depth examination of side effects in replays and 
+suggested ways of recording and controlling them.
+If side effects are outsourced into separate, individual commands, they can be 
+partially reused or reinvoked.
+%
+As we view it, these systems do not consider the challenges which arise from 
+modifying and interacting with the application's history in a single environment. 
+Consistency issues, causality violations, branching, and the control of side 
+effects in replays, are some of the challenges which we have attempted to solve 
+in the two previous chapters. 
+
+In our approach, applications can examine their state history retrospectively 
+and modify this history as a mean to explore alternative states. Event sourcing 
+with CQRS is a perfect match for this, since it inherently captures state 
+changes as commands and events. In this first of part of the thesis, we 
+identified the major challenge of retroaction in event-sourced systems. 
+We discussed temporal and causal inconsistencies, potential solutions and 
+necessary restrictions. Furthermore, we provided an extensive overview on 
+limitations and constraints of retroaction in event-sourced systems. Next, we 
+described two appropriate architectural modifications to event-sourced systems 
+following a CQRS style of architecture.
+%
+We demonstrated the applicability of both architectures by implementing them as 
+prototypes. For the unified architecture, we described an appropriate programming 
+model and its implementation as a prototype.
+%
+In Chapter \ref{chp:concept}, we illustrated that the usage of retroactive computing 
+is heavily dependent on the application domain and its domain-specific constraints. 
+Some domains cannot take advantage of its full potential due to strict constraints 
+caused by side effects, real-world coupling, or hidden causalities. Other domains 
+on the other hand benefit heavily of retroactive aspects, as it allows for an 
+entirely new perspective on application state.
+%
+As can be seen with the other retroactive constraints as well, it is heavily 
+dependent on the domain model how much can be made of retroaction and how
+high the informative value of retroactive modifications can be.
+If retroaction is taken into account from the start when building a system, the 
+informative value of retroactive changes can be maximized.

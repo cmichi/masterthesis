@@ -1,0 +1,133 @@
+\chapter{Results and Conclusion}
+\label{chp:results}
+
+This thesis provides an extensive examination of the concept of retroactive 
+computing in event-sourced systems. We identified key challenges, proposed 
+solutions, and demonstrated their applicability. This chapter provides our 
+concluding remarks.
+
+%================
+\section{Summary}
+Event sourcing is a perfect match for retroactive computing, since it inherently 
+captures state changes as modifications. Thus, prior states can be restored or 
+retroactively modified.
+%
+The Chapters \ref{chp:background} and \ref{chp:related-work} described the field, 
+related work, and delimitations of existing work to our objectives. In Chapter 
+\ref{chp:concept} we identified major issues of retroaction, such as temporal 
+and causal inconsistencies, or side effects. We illustrated that restraining 
+direct editing operations to branches of a timeline can prevent causality issues. 
+Furthermore, it is possible to retain traceability and append-only behavior in
+event-sourced systems if results from retroaction are integrated back into the 
+system as events.
+
+Considering commands in replay scenarios, we discussed several possibilities of 
+imposing control over potential side effects, and concluded by introducing partial 
+replays, which require the tracking of causalities among events. 
+The command and event primitives of event sourcing with CQRS are an ideal match 
+for imposing control over side effects. Through events, side effects can be 
+recorded and reused. Through the sourcing of commands, side effects can be 
+reinvoked. If side effects are outsourced into separate, individual commands, 
+they can be partially reused or reinvoked.
+
+
+Next, we discussed a number of ideas for keeping a consistent timeline after a 
+retroactive modification. For this, we transferred ideas from time travel theory 
+to retroaction in event-sourced systems. Corresponding to parallel universe 
+theories, we proposed the prohibition of editing the system's own timeline, while 
+allowing direct retroactive modifications only for branches.
+Analogous to the self-consistency principle, we proposed validation conditions 
+and the replay (or removal) of causally related events. 
+%
+Furthermore, this chapter contributed an overview on constraints and limitations 
+of retroaction in event-sourced systems. We highlighted the central role of 
+hidden causalities through real-world coupling or through side effects. 
+Further limitations, which we identified, were the influence of causality 
+violations, causally equivalent replays, and the semantics of commands which 
+may annihilate retroactive modifications. The performance of retroactive 
+computations can be a further limiting factor.
+%
+Our conceptual considerations were concluded with the suggestion of architectural 
+modifications (e.g. resolving the command/query segregation for retroaction) and 
+the demonstration how different architectures can be used for enabling retroactive 
+capabilities of event-sourced applications.
+%
+We argued that it is heavily dependent on the actual application domain how much 
+can be made of retroaction and how high the informative value of retroactive 
+modifications can be.
+If retroaction is taken into account from the start when building a system, the 
+informative value of retroactive changes can be maximized and limitations reduced.
+
+Chapter \ref{chp:programming} demonstrated the practical applicability of the 
+concepts described in Chapter \ref{chp:concept}. We outlined a programming model 
+for the unified architecture. Moreover, a prototypical implementation was 
+described using the scenario of an online shop. 
+We demonstrated how issues of retroactive systems can be addressed in a
+programming model (e.g. by constraining possible modifications) and which new 
+challenges emerge from the application of our ideas (e.g. retroaction-aware 
+programming). Furthermore, the central role of the delta encoding of events was 
+highlighted for its effect on retroaction.
+%
+Our programming model provides the ability to access and manipulate the application's 
+state history in a single environment. This enables a variety of possibilities, 
+such as history-aware algorithms and novel debugging schemes.
+Developers can use the application's data structures, functions, and libraries 
+in the retroactive code. They can conduct analyses of the application's history
+or explore alternate branches.
+
+Integrating retroaction in event-sourced systems introduces a set of capabilities
+which are not feasible in traditional event-sourced architectures. 
+Chapter \ref{chp:sum} illustrated that a comparison of our conceptual and
+architectural considerations to existing systems is difficult, since the 
+capabilities which we propose for event-sourced systems cannot be found in this 
+combination in the event-sourced field, nor in related work.
+
+In Chapter \ref{chp:chrono}, we applied the ideas described in Chapters \ref{chp:concept} 
+and \ref{chp:programming} to the Chronograph research platform.
+Many of the described concepts can be applied there as well: timeline pointers 
+via tagging, the delta encoding of events, retroaction-aware programming, or 
+tracking causalities, for example.
+Moreover, we proposed platform-specific solutions, such as I/O vertices or portals.
+%
+An additional element that can be transferred to Chronograph consists of the 
+limitations of retroaction. These limitations pose a significant restriction 
+to the expressiveness and informative value of retroaction. They can be reduced 
+when taken into account while creating a system.
+
+
+%===============================
+\section{Outlook and Future Work}
+
+Retroactive computing allows for self-improving, self-modifying, self-learning, 
+and self-referential algorithms in event-sourced systems. 
+Applications can adapt their future behavior by analyzing their own past. An area 
+where this might have interesting applications is the usage of retroactive 
+computing in event-sourced systems for machine learning, artificial intelligence,
+or data mining. The application's history could be used as input to optimize 
+parameters of an algorithm.
+In a further step, updated or modified versions of algorithms could be evaluated 
+and compared against each other by replaying commands from the timeline in 
+experimental branches.
+
+Future work on the topic should further analyze which domains could benefit of 
+retroactive computing. For this, more event-sourced architectures which enable 
+retroactive capabilities need to be taken into consideration, apart from the two 
+architectures that we examined.
+
+\pagebreak
+
+\section{Conclusion}
+
+To the best of our knowledge, we provide the first detailed examination of the 
+concept of retroactive computing in event-sourced systems. 
+The utilization of retroaction in event-sourced systems enables a set of features 
+that cannot be accomplished with traditional application architectures. 
+Applications cannot only analyze their own history retrospectively, they can also 
+actively modify their past in order to explore alternative states.
+%
+We illustrated that the usage of retroactive computing is heavily dependent on 
+the application domain and its domain-specific constraints. Some domains cannot 
+take advantage of its full potential due to strict constraints caused by side 
+effects, real-world coupling, or hidden causalities. Other domains on the other 
+hand benefit heavily of retroactive aspects, as it allows for an entirely new 
+perspective on application state.

@@ -1,0 +1,72 @@
+% !TEX encoding = UTF-8 Unicode
+\documentclass[
+	  twoside 
+	, openright
+	, a4paper
+]{book}
+
+\include{misc/header}
+
+\begin{document}
+
+
+%=================
+%\pagenumbering{roman}
+%\setcounter{page}{1}
+\frontmatter
+
+\input{misc/titlepage}
+
+\newpage 
+\thispagestyle{empty}
+\ \newpage 
+
+\input{misc/abstract}
+
+\newpage 
+
+\input{misc/license}
+
+\newpage 
+
+\input{misc/preface}
+
+\newpage 
+\thispagestyle{empty}
+\ \newpage 
+
+\newpage
+\includepdf{resources/quote/quote.pdf}
+\newpage
+
+\cleardoublepage
+
+\tableofcontents
+
+\cleardoublepage
+
+
+%=================
+\mainmatter
+
+\input{chapters/introduction}
+\input{chapters/background}
+\input{chapters/related-work}
+
+\input{chapters/concept}
+\input{chapters/programming-model}
+\input{chapters/pt1-results}
+
+\input{chapters/chronograph}
+\input{chapters/results}
+
+%=================
+\backmatter
+\chapter{References}
+\printbibliography[heading=none]
+
+\input{misc/colophon}
+
+%\input{misc/declaration}
+
+\end{document}

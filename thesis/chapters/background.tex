@@ -1,0 +1,30 @@
+\chapter{Background and Terminology}
+\label{chp:background}
+
+This chapter details event sourcing and related terminology. We provide an 
+overview on benefits and constraints of event-sourced systems and examine 
+in which cases event sourcing can be applied beneficially as a style of 
+architecture. 
+Furthermore, we describe Command Query Responsibility Segregation (CQRS), 
+a complementary architectural style for event-sourced systems, and illustrate 
+which benefits can be gained from applying it.
+
+\input{chapters/es-intro}
+\input{chapters/cqs-cqrs}
+
+\section{Summary}
+In this chapter, we detailed the concept of event sourcing. We laid out the
+terminology used in this thesis and described the Command Query Responsibility 
+Segregation (CQRS) pattern, a common style of architecture for event-sourced 
+systems. Furthermore, we examined the symbiotic relationship formed by CQRS 
+and event sourcing.
+
+Although we described some of the benefits which event-sourced systems can 
+provide, it is important to note that event sourcing is seldom applied to an 
+overall system. Indeed, an often found recommendation is to apply this style 
+of architecture only within a clearly defined context. The same recommendation 
+is often found for CQRS, since the command/query model segregation comes with 
+the implication of higher complexity and often an eventually consistent 
+behavior. Thus, applying CQRS as a style of architecture is only beneficial 
+when the system has requirements for CQRS properties, such as individual 
+optimization of the read and write model.

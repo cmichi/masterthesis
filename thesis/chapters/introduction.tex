@@ -1,0 +1,83 @@
+\chapter{Introduction}
+\label{chp:introduction}
+
+\section{Motivation}
+
+\emph{Event sourcing (ES)} describes a style of architecture wherein each 
+state altering operation in an application is captured as an immutable event 
+\cite{Fowler2005}.
+These events are appended to an \emph{event log}. Once appended they can
+never be deleted, the event log possesses a write-once, append-only restriction.
+The current state of an application is derived from this series of events.
+When replayed, this series of events always leads to the exact same state 
+of the application. 
+
+Systems following such an event-sourced architecture have been gaining
+popularity in recent years. There are a number of reasons for this; among
+them is that event-driven architectures enable loosely coupled, composable
+systems and possess an inherent asynchronous style \cite{Hohpe2006}.
+As such they fit well for e.g. distributed systems with a need to scale.
+%
+A distributed architecture which applies event sourcing can utilize the 
+immutable nature of events and the append-only semantics of the event log 
+beneficial for scalability.
+Event sourcing also fits well for systems with the requirement of an audit 
+log, since events are immutable and the event log possesses an append-only 
+restriction. It can always be clearly traced how a system reached its 
+current state. 
+
+This thesis focuses on the \emph{retroactive} aspect of event-sourced
+systems -- exploring the past of existing or simulated event logs and the 
+possibilities which can be gained hereby. 
+Manipulations of the past contradict the append-only behavior of the event 
+log, but can enable very interesting applications. Among other applications, 
+the recorded history can be replayed in order to evaluate how other events 
+or an alternate application behavior would have influenced the current state 
+of the system \cite{Erb2014}.
+These retroactive possibilities are potential capabilities of event-sourced 
+systems, but a practical exploration of how these operations can be enabled 
+and supported has not yet been conducted.
+
+\section{Overview}
+Restoring prior states of a system is already a well-established feature of 
+event-sourced architectures. This thesis examines another very interesting 
+aspect of this architectural style, which we think has not yet been considered 
+sufficiently: 
+%
+Event sourcing is a perfect match for a computing model in which programmers 
+can modify and interact with the application's history retroactively in the 
+same environment in which the program runs. 
+
+We aim to provide a thorough examination of the retroactive capabilities of 
+event-sourced systems. This work identifies issues and constraints that need 
+to be taken into consideration when utilizing these capabilities. Furthermore, 
+we identify benefits which systems can gain from retroactive features. The 
+practicality of our ideas is analyzed in a programming model and a prototypical 
+implementation. In order to gain further insights into the applicability of our 
+ideas, we apply them in an existing research project.
+
+\section{Outline}
+In Chapter \ref{chp:background}, we describe the terminology and background of 
+event sourcing and describe work related to this thesis' objectives. 
+%
+Chapter \ref{chp:concept} focuses on a conceptual view on the topic, identifies 
+challenges, and details our ideas. For this, we describe an event-sourced 
+architecture following Command Query Responsibility Segregation (CQRS), a style 
+of system architecture well-suited to event-sourced systems. Next, we examine 
+how retroactive computing features can be integrated into such an architecture.
+A number of issues and limitations, which need to be taken into account for 
+this, are identified %These findings are used to derive two contrasting 
+conceptual models. and we suggest two potential event-sourced architectures for 
+retroactive computing.
+%
+In Chapter \ref{chp:programming}, we outline a programming model which utilizes 
+retroactive capabilities of an ES+CQRS architecture and takes retroactive issues 
+into account.
+This programming model is implemented as a prototype with an example scenario.
+Chapter \ref{chp:sum} summarizes our architectural considerations.
+%
+In Chapter \ref{chp:chrono}, we examine the applicability of our ideas in an 
+event-sourced architecture that does not follow CQRS. The Chronograph research 
+project is the foundation for this examination.
+%
+Chapter \ref{chp:results} provides our concluding remarks and closes the thesis.
