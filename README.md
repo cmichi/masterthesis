@@ -10,6 +10,10 @@ This repository contains the XeLaTeX code for the thesis and all the
 illustrations which I created (in TikZ). The version which I used was 
 XeTeX 3.14159265-2.6-0.99996 (TeX Live 2016).
 
+My main intention behind making this code available is to enable others 
+to build upon the illustration and to look up the mechanisms behind 
+certain typesetting facets.
+
 To compile the files:
 
 	git clone https://github.com/cmichi/masterthesis.git
@@ -20,7 +24,9 @@ To compile the files:
 	cd ../thesis/
 	make biber          # compiles thesis and bibliography
 
-[ ![Thesis Titlepage](https://github.com/cmichi/masterthesis/raw/master/images/titlepage.png) ](https://oparu.uni-ulm.de/xmlui/bitstream/handle/123456789/4150/RetroactiveComputing_Mueller2016.pdf?sequence=5&isAllowed=y).
+<p align="center">
+	[ ![Thesis Titlepage](https://github.com/cmichi/masterthesis/raw/master/images/titlepage.png) ](https://oparu.uni-ulm.de/xmlui/bitstream/handle/123456789/4150/RetroactiveComputing_Mueller2016.pdf?sequence=5&isAllowed=y).
+</p>
 
 
 ## Cite (BibTeX/BibLaTeX)
