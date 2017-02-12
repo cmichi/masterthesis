@@ -15,7 +15,8 @@ as a proper publication with a proper DOI.
 The [PDF](https://oparu.uni-ulm.de/xmlui/bitstream/handle/123456789/4150/RetroactiveComputing_Mueller2016.pdf?sequence=5&isAllowed=y) 
 is also hosted there.
 
-To compile the files:
+To compile the files make sure you have the free fonts _Linux Libertine_
+and the _Adobe Source Code Pro_ installed. Then:
 
 	git clone https://github.com/cmichi/masterthesis.git
 
