@@ -11,8 +11,9 @@ illustrations which I created (in TikZ). The version which I used was
 XeTeX 3.14159265-2.6-0.99996 (TeX Live 2016).
 
 My main intention behind making this code available is to enable others 
-to build upon the illustration and to look up the mechanisms behind 
-certain typesetting facets.
+to build upon the illustration, look up the mechanisms behind certain 
+typesetting facets, and provide insights into how a large document can 
+be structured with TeX.
 
 To compile the files:
 
