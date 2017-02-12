@@ -1,11 +1,5 @@
 # Readme
 
-I have published the thesis under a free license via the universities 
-publication service. It is available [there](https://oparu.uni-ulm.de/xmlui/handle/123456789/4150) 
-as a proper publication with a proper DOI which can be cited and stuff. 
-The [PDF](https://oparu.uni-ulm.de/xmlui/bitstream/handle/123456789/4150/RetroactiveComputing_Mueller2016.pdf?sequence=5&isAllowed=y) 
-is also hosted there.
-
 This repository contains the XeLaTeX code for the thesis and all the 
 illustrations which I created (in TikZ). The version which I used was 
 XeTeX 3.14159265-2.6-0.99996 (TeX Live 2016).
@@ -14,6 +8,12 @@ My main intention behind making this code available is to enable others
 to build upon the illustration, look up the mechanisms behind certain 
 typesetting facets, and provide insights into how a large document can 
 be structured with TeX.
+
+I have published the thesis under a free license via the universities 
+publication service. It is available [there](https://oparu.uni-ulm.de/xmlui/handle/123456789/4150) 
+as a proper publication with a proper DOI. 
+The [PDF](https://oparu.uni-ulm.de/xmlui/bitstream/handle/123456789/4150/RetroactiveComputing_Mueller2016.pdf?sequence=5&isAllowed=y) 
+is also hosted there.
 
 To compile the files:
 
